@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -105,14 +106,15 @@ public class HomeFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recyclerView);
         productList = new ArrayList<>();
         sliderImageLinks = new ArrayList<>();
+//        recyclerView.setOnFlingListener(new RecyclerView.OnFlingListener() {
+//            @Override
+//            public boolean onFling(int velocityX, int velocityY) {
+//                recyclerView.dispatchNestedFling(velocityX, velocityY, false);
+//                return false;
+//            }
+//        });
+        ViewCompat.setNestedScrollingEnabled(recyclerView,false);
         recyclerViewLayoutManager = new GridLayoutManager(getActivity(), 2);
-        recyclerView.setOnFlingListener(new RecyclerView.OnFlingListener() {
-            @Override
-            public boolean onFling(int velocityX, int velocityY) {
-                recyclerView.dispatchNestedFling(velocityX, velocityY, false);
-                return false;
-            }
-        });
 
         recyclerView.setLayoutManager(recyclerViewLayoutManager);
         recyclerView_Adapter = new NewArrivalProductsAdapter(getActivity(),productList);

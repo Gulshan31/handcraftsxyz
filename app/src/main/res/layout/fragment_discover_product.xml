@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.kinitoapps.handcraftsxyz.fragments.DiscoverStoreFragment">
+    tools:context="com.kinitoapps.handcraftsxyz.fragments.DiscoverProductFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <android.support.constraint.ConstraintLayout
@@ -68,7 +68,27 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/sellerName" />
 
-        <!-- TODO: Add missing layout here -->
+        <Button
+            android:id="@+id/like_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="LIKE"
+            app:layout_constraintTop_toBottomOf="@id/productPrice"
+            app:layout_constraintEnd_toStartOf="@+id/show_product"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintLeft_toLeftOf="parent"
+             />
+
+        <Button
+            android:id="@+id/show_product"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SHOW PRODUCT"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/like_button"
+            app:layout_constraintTop_toBottomOf="@id/productPrice" />
 
         <TextView
             android:id="@+id/about_product_head_t"
@@ -85,7 +105,7 @@
             app:layout_constraintHorizontal_bias="0.5"
 
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/productPrice" />
+            app:layout_constraintTop_toBottomOf="@id/like_button" />
 
         <ImageView
             android:id="@+id/about_product_head_i"
@@ -98,7 +118,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/about_product_head_t"
-            app:layout_constraintTop_toBottomOf="@id/productPrice" />
+            app:layout_constraintTop_toBottomOf="@id/like_button" />
         <TextView
             android:id="@+id/productAbout"
             android:layout_width="match_parent"

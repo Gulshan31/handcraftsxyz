@@ -1,12 +1,15 @@
 package com.kinitoapps.handcraftsxyz.fragments;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -40,7 +43,7 @@ public class DiscoverStoreFragment extends Fragment {
     private String mParam2;
     TextView storeName,storeUserName;
     private static final String URL_STORES = "http://handicraft-com.stackstaging.com/myapi/api_random_store.php";
-
+    String storeUserNameString;
     private OnFragmentInteractionListener mListener;
 
     public DiscoverStoreFragment() {
@@ -81,6 +84,16 @@ public class DiscoverStoreFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_discover_store, container, false);
         storeName = root.findViewById(R.id.store_name);
         storeUserName = root.findViewById(R.id.store_username);
+            Button button = root.findViewById(R.id.sendDataButton);
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent returnIntent = new Intent();
+                    returnIntent.putExtra("store",storeUserNameString);
+                    getActivity().setResult(Activity.RESULT_OK,returnIntent);
+                    getActivity().finish();
+                }
+        });
         loadStoreInfo();
         return root;
 
@@ -102,7 +115,8 @@ public class DiscoverStoreFragment extends Fragment {
 
                                 //adding the product to product list
                                     storeName.setText(product.getString("name"));
-                                    storeUserName.setText(product.getString("username"));
+                                    storeUserNameString = product.getString("username");
+                                    storeUserName.setText(storeUserNameString);
 
                             }
 

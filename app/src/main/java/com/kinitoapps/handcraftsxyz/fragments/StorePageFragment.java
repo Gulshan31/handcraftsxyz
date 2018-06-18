@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -64,6 +65,7 @@ public class StorePageFragment extends Fragment implements View.OnClickListener{
     Button sub_btn;
     List<Product> productList;
     private SQLiteHandler db;
+    ProductStorePageAdapter adapter;
 
     private OnFragmentInteractionListener mListener;
     private static final String URL_STORES = "http://handicraft-com.stackstaging.com/myapi/api_all_stores.php?sto=";
@@ -122,14 +124,16 @@ public class StorePageFragment extends Fragment implements View.OnClickListener{
         loadStoreInfo();
         recyclerView = root.findViewById(R.id.store_recycler_view);
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-        recyclerView.setOnFlingListener(new RecyclerView.OnFlingListener() {
-            @Override
-            public boolean onFling(int velocityX, int velocityY) {
-                recyclerView.dispatchNestedFling(velocityX, velocityY, false);
-                return false;
-            }
-        });
-        recyclerView.setAdapter(new ProductStorePageAdapter(getActivity(),productList));
+        ViewCompat.setNestedScrollingEnabled(recyclerView,false);
+//        recyclerView.setOnFlingListener(new RecyclerView.OnFlingListener() {
+//            @Override
+//            public boolean onFling(int velocityX, int velocityY) {
+//                recyclerView.dispatchNestedFling(velocityX, velocityY, false);
+//                return false;
+//            }
+//        });
+        adapter = new ProductStorePageAdapter(getActivity(),productList);
+        recyclerView.setAdapter(adapter);
 
         loadProducts();
 
@@ -171,7 +175,7 @@ public class StorePageFragment extends Fragment implements View.OnClickListener{
                                 ));
                             }
 
-                            ProductStorePageAdapter adapter = new ProductStorePageAdapter(getActivity(), productList);
+                            adapter.notifyDataSetChanged();
                             recyclerView.setAdapter(adapter);
                         } catch (JSONException e) {
                             e.printStackTrace();

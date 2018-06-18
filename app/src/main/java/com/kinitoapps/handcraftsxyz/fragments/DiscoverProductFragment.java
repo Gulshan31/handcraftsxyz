@@ -1,6 +1,8 @@
 package com.kinitoapps.handcraftsxyz.fragments;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,6 +10,7 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -40,7 +43,7 @@ public class DiscoverProductFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    String sellerName;
+    String sellerName,productID;
     TextView productName, productAbout, productBy, productPrice;
     private static final String URL_PRODUCTS = "http://handicraft-com.stackstaging.com/myapi/api_random_product.php";
     private OnFragmentInteractionListener mListener;
@@ -89,6 +92,16 @@ public class DiscoverProductFragment extends Fragment {
         productAbout = view.findViewById(R.id.productAbout);
         ViewPagerAdapterProductImages viewPagerAdapter = new ViewPagerAdapterProductImages(getActivity());
         viewPager.setAdapter(viewPagerAdapter);
+        Button button = view.findViewById(R.id.show_product);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent returnIntent = new Intent();
+                returnIntent.putExtra("product", productID);
+                getActivity().setResult(Activity.RESULT_OK, returnIntent);
+                getActivity().finish();
+            }
+        });
         populateProductInfo();
         return view;
     }
@@ -121,6 +134,7 @@ public class DiscoverProductFragment extends Fragment {
                                     productAbout.setText(product.getString("about"));
                                     sellerName = product.getString("sellerName");
                                     productBy.setText(sellerName);
+                                    productID = product.getString("productID");
                                     productPrice.setText("₹ "+product.getString("price"));
 
                             }
